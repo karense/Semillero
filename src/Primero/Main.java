@@ -1,6 +1,7 @@
 package Primero;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,18 +26,37 @@ public class Main {
 
             switch (option) {
                 case "a":
-                    boolean isClientsListSmallerThanThen = clientsController.size() < 10;
+                    int id;
+                    boolean isClientsListSmallerThanThen = clientsController.size() != 0;
                     if (isClientsListSmallerThanThen) {
-                        clientsController.add();
+                        System.out.println("Escribe el nombre");
+                        String name = scanner.next();
+
+                        if(!(name.matches("[aA-zZ]+"))){
+                            System.out.println("Debe ser solo letras");
+                            break;
+                        }
+                        System.out.println("Escribe la cédula");
+                        try {
+                            id = scanner.nextInt();
+                        }catch (InputMismatchException e){
+                            System.out.println("Debe ser un número");
+                            break;
+                        }
+                        clientsController.add(name, id);
                     } else {
                         System.out.println("Debe borrar un cliente antes de poder ingresar uno nuevo");
                     }
                     break;
                 case "b":
-                    clientsController.deleteByIndex();
+                    System.out.println("Escribe el index del cliente a eliminar");
+                    int index = scanner.nextInt();
+                    clientsController.deleteByIndex(index);
                     break;
                 case "c":
-                    clientsController.findById();
+                    System.out.println("Ingrese la cédula");
+                    int idInput = scanner.nextInt();
+                    clientsController.findById(idInput);
                     break;
                 case "d":
                     clientsController.showClients();
@@ -50,6 +70,8 @@ public class Main {
             }
 
         }
+
+        scanner.close();
 
     }
 }

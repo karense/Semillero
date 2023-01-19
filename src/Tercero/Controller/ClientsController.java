@@ -15,8 +15,12 @@ public class ClientsController {
     }
 
     public int getIndexByIdClient(int id){
-
+        System.out.println(clients.stream().filter(client -> client.getId() == id));
         return 0;
+    }
+
+    public void showProductsByClient(int id){
+
     }
 
     public void deleteByIdClient(int index){

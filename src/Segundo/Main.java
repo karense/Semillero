@@ -1,7 +1,7 @@
 package Segundo;
 
-import Primero.ClientsController;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -23,13 +23,32 @@ public class Main {
 
             switch (option) {
                 case "a":
-                    clientsController.add();
+                    int id;
+                    System.out.println("Escribe el nombre");
+                    String name = scanner.next();
+
+                    if(!(name.matches("[aA-zZ]+"))){
+                        System.out.println("Debe ser solo letras");
+                        break;
+                    }
+                    System.out.println("Escribe la cédula");
+                    try {
+                        id = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        System.out.println("Debe ser un número");
+                        break;
+                    }
+                    clientsController.add(name, id);
                     break;
                 case "b":
-                    clientsController.deleteByIndex();
+                    System.out.println("Escribe el cédula del cliente a eliminar");
+                    int idDelete = scanner.nextInt();
+                    clientsController.deleteById(idDelete);
                     break;
                 case "c":
-                    clientsController.findById();
+                    System.out.println("Ingrese la cédula");
+                    int idInput = scanner.nextInt();
+                    clientsController.findById(idInput);
                     break;
                 case "d":
                     clientsController.showClients();
@@ -43,6 +62,8 @@ public class Main {
             }
 
         }
+
+        scanner.close();
 
     }
 }
