@@ -1,14 +1,41 @@
-package Primero;
+package Tercero;
 
-import java.util.ArrayList;
+import Tercero.Controller.ClientsController;
+
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class Menu {
 
+    static public void printMenuMain () {
+        Scanner scanner = new Scanner(System.in);
+        ClientsController clientsController = new ClientsController();
+        boolean isExit = false;
+        while (!isExit) {
 
-    public static void main(String[] args) {
+        System.out.println("a. Menú de clientes");
+        System.out.println("b. Menú de productos");
+        System.out.println("c. Salir");
+
+        System.out.println("Escribe una de las opciones");
+
+        String option = scanner.next();
+
+        switch (option) {
+            case "a":
+                printMenuClient();
+                break;
+            case "b":
+                printMenuProduct();
+                break;
+            default:
+                System.out.println("Ingrese una opción valida");
+                break;
+        }
+        }
+    }
+
+    static public void printMenuClient (){
         Scanner scanner = new Scanner(System.in);
         ClientsController clientsController = new ClientsController();
         boolean isExit = false;
@@ -27,8 +54,6 @@ public class Main {
             switch (option) {
                 case "a":
                     int id;
-                    boolean isClientsListFull = clientsController.size() != 0;
-                    if (isClientsListFull) {
                         System.out.println("Escribe el nombre");
                         String name = scanner.next();
 
@@ -43,20 +68,18 @@ public class Main {
                             System.out.println("Debe ser un número");
                             break;
                         }
-                        clientsController.add(name, id);
-                    } else {
-                        System.out.println("Debe borrar un cliente antes de poder ingresar uno nuevo");
-                    }
+                        clientsController.addClient(name, id);
+
                     break;
                 case "b":
-                    System.out.println("Escribe el index del cliente a eliminar");
-                    int index = scanner.nextInt();
-                    clientsController.deleteByIndex(index);
+                    System.out.println("Escribe la cedula del cliente a eliminar");
+                    int idInput = scanner.nextInt();
+                    clientsController.deleteByIdClient(idInput);
                     break;
                 case "c":
                     System.out.println("Ingrese la cédula");
-                    int idInput = scanner.nextInt();
-                    clientsController.findById(idInput);
+                    int idInputFind = scanner.nextInt();
+                    clientsController.findByIdClient(idInputFind);
                     break;
                 case "d":
                     clientsController.showClients();
@@ -72,6 +95,10 @@ public class Main {
         }
 
         scanner.close();
+    }
 
+    static public void printMenuProduct(){
+        System.out.println("a. Añadir nuevo producto");
+        System.out.println("b. Borrar producto por nombre");
     }
 }

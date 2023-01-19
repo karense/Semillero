@@ -14,6 +14,9 @@ public class Client {
         this.id = id;
     }
 
+    public Client() {
+    }
+
     public String getName() {
         return name;
     }
@@ -38,4 +41,6 @@ public class Client {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+
 }
